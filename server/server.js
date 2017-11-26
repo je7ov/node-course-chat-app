@@ -25,8 +25,6 @@ io.on('connection', (socket) => {
     console.log('New message recieved:', JSON.stringify(message, undefined, 2));
     io.emit('newMessage', generateMessage(message.from, message.text));
     callback('Message sent');
-    // message.timestamp = Date.now();
-    // socket.broadcast.emit('newMessage', message);
   });
 
   socket.on('disconnect', () => {
