@@ -4,29 +4,31 @@
 
 const socket = io();
 
+// ON CONNECTED TO SERVER
 socket.on('connect', () => {
   console.log('connected to server');
 });
 
+// ON DISCONNECTED FROM SERVER
 socket.on('disconnect', () => {
   console.log('disconnected from server');
 });
 
+// ON NEW MESSAGE RECIEVED
 socket.on('newMessage', (message) => {
-  // console.log("New message:", JSON.stringify(message, undefined, 2));
-
+  const formattedTime = moment(message.timestamp).format('h:mm a');
   const li = $('<li></li>');
-  li.text(`${message.from}: ${message.text}`);
+  li.text(`${message.from} ${formattedTime}: ${message.text}`);
   $('#message-list').append(li);
 });
 
+// ON NEW LOCATION MESSAGE RECIEVED
 socket.on('newLocationMessage', (message) => {
-  // console.log("New location message:", JSON.stringify(message, undefined, 2));
-
+  const formattedTime = moment(message.timestamp).format('h:mm a');
   const li = $('<li></li>');
   const a = $('<a target="blank">My current location</a>')
 
-  li.text(`${message.from}: `);
+  li.text(`${message.from} ${formattedTime}: `);
   a.attr('href', message.url);
   li.append(a);
   $('#message-list').append(li);
