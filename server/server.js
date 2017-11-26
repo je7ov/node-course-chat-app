@@ -16,6 +16,8 @@ io.on('connection', (socket) => {
 
   socket.on('createMessage', (message) => {
     console.log('New message recieved:', JSON.stringify(message, undefined, 2));
+    message.timestamp = Date.now();
+    io.emit('newMessage', message);
   });
 
   socket.on('disconnect', () => {
