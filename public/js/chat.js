@@ -75,14 +75,11 @@ const messageForm = $('#message-form');
 messageForm.on('submit', (event) => {
   event.preventDefault();
   
-  if (input.val() !== '') {
-    socket.emit('createMessage', {
-      from: 'User',
-      text: input.val()
-    }, (res) => {
-      input.val('');
-    });
-  }
+  socket.emit('createMessage', {
+    text: input.val()
+  }, (res) => {
+    input.val('');
+  });
 });
 
 const locationButton = $('#send-location');
@@ -98,7 +95,6 @@ locationButton.on('click', () => {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
     }, () => {
-      console.log('callback');
       locationButton.removeAttr('disabled');    
       locationButton.text('Send location');
     });
