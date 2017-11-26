@@ -14,10 +14,25 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
   console.log('New user connected')
 
+  const now = Date.now();
+  socket.emit('newMessage', {
+    text: 'Welcome to the chat!',
+    from: 'Admin',
+    timestamp: now
+  });
+
+  socket.broadcast.emit('newMessage', {
+    text: 'A new user has joined the chat!',
+    from: 'Admin',
+    timestamp: now
+  });
+
   socket.on('createMessage', (message) => {
     console.log('New message recieved:', JSON.stringify(message, undefined, 2));
     message.timestamp = Date.now();
     io.emit('newMessage', message);
+
+    // socket.broadcast.emit('newMessage', message);
   });
 
   socket.on('disconnect', () => {
