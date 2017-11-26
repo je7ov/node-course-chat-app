@@ -27,6 +27,12 @@ class Users {
   getUser (id) {
     return this.users.find((user) => user.id === id);
   }
+  
+  /** @param {string} name */
+  getUserByName (name) {
+    name = name.toLowerCase();
+    return this.users.find((user) => user.name.toLowerCase() === name);
+  }
 
   /** @param {string} room */
   getUserList (room) {

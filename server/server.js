@@ -20,6 +20,12 @@ io.on('connection', (socket) => {
   socket.on('join', (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       return callback('Name and room name are required');
+    } else if (params.name.toLowerCase() === 'admin' || params.name.toLowerCase() === 'je7ov') {
+      return callback('Name is reserved');
+    }
+    const userCheck = users.getUserByName(params.name);
+    if (userCheck && userCheck.room.toLowerCase() === params.room.toLowerCase()) {
+      return callback('Name is currently in use in room');
     }
 
     socket.join(params.room);
@@ -49,7 +55,7 @@ io.on('connection', (socket) => {
     if (user) {
       io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, position.latitude, position.longitude));
     }
-    
+
     callback();
   });
 
