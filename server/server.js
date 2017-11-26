@@ -21,10 +21,10 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined the chat!'));
 
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     console.log('New message recieved:', JSON.stringify(message, undefined, 2));
     io.emit('newMessage', generateMessage(message.from, message.text));
-    
+    callback('Message sent');
     // message.timestamp = Date.now();
     // socket.broadcast.emit('newMessage', message);
   });
