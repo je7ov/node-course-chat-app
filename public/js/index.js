@@ -27,6 +27,7 @@ socket.on('newMessage', (message) => {
   });
 
   messageList.append(html);
+  scrollToBottom();
 });
 
 // ON NEW LOCATION MESSAGE RECIEVED
@@ -40,6 +41,7 @@ socket.on('newLocationMessage', (message) => {
   });
 
   messageList.append(html);
+  scrollToBottom();  
 });
 
 /* ---------------- */
@@ -84,3 +86,20 @@ locationButton.on('click', () => {
     alert('Unable to fetch location');
   });
 });
+
+function scrollToBottom() {
+  // Selectors
+  const messages = $('#message-list');
+  const newMessage = messages.children('li:last-child');
+
+  // Heights
+  const clientHeight = messages.prop('clientHeight');
+  const scrollTop = messages.prop('scrollTop');
+  const scrollHeight = messages.prop('scrollHeight');
+  const newMessageHeight = newMessage.innerHeight();
+  const lastMessageHeight = newMessage.prev().innerHeight();
+
+  if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+    messages.scrollTop(scrollHeight);
+  }
+}

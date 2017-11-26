@@ -14,15 +14,12 @@ const io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
-  console.log('New user connected')
-
   const now = Date.now();
   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!'));
 
   socket.broadcast.emit('newMessage', generateMessage('Admin', 'A new user has joined the chat!'));
 
   socket.on('createMessage', (message, callback) => {
-    console.log('New message recieved:', JSON.stringify(message, undefined, 2));
     io.emit('newMessage', generateMessage(message.from, message.text));
     callback();
   });
