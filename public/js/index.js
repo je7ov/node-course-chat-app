@@ -14,24 +14,32 @@ socket.on('disconnect', () => {
   console.log('disconnected from server');
 });
 
+const messageList = $('#message-list');
+
 // ON NEW MESSAGE RECIEVED
 socket.on('newMessage', (message) => {
   const formattedTime = moment(message.timestamp).format('h:mm a');
-  const li = $('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
-  $('#message-list').append(li);
+  const template = $('#message-template').html();
+  const html = Mustache.render(template, {
+    text: message.text,
+    from: message.from,
+    timestamp: formattedTime
+  });
+
+  messageList.append(html);
 });
 
 // ON NEW LOCATION MESSAGE RECIEVED
 socket.on('newLocationMessage', (message) => {
   const formattedTime = moment(message.timestamp).format('h:mm a');
-  const li = $('<li></li>');
-  const a = $('<a target="blank">My current location</a>')
+  const template = $('#location-message-template').html();
+  const html = Mustache.render(template, {
+    url: message.url,
+    from: message.from,
+    timestamp: formattedTime
+  });
 
-  li.text(`${message.from} ${formattedTime}: `);
-  a.attr('href', message.url);
-  li.append(a);
-  $('#message-list').append(li);
+  messageList.append(html);
 });
 
 /* ---------------- */
