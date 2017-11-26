@@ -7,11 +7,33 @@ const socket = io();
 // ON CONNECTED TO SERVER
 socket.on('connect', () => {
   console.log('connected to server');
+
+  const params = $.deparam();
+  socket.emit('join', params, (err) => {
+    if (err) {
+      alert(err);
+      window.location.href = '/';
+    } else {
+
+    }
+  });
 });
 
 // ON DISCONNECTED FROM SERVER
 socket.on('disconnect', () => {
   console.log('disconnected from server');
+});
+
+
+// ON USER LIST UPDATED
+const peopleList = $('#users');
+socket.on('updateUserList', (users) => {
+  const ol = $('<ol></ol>')
+  for(user of users) {
+    ol.append($('<li></li>').text(user));
+  }
+
+  peopleList.html(ol);
 });
 
 const messageList = $('#message-list');
