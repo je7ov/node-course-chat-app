@@ -24,11 +24,12 @@ io.on('connection', (socket) => {
   socket.on('createMessage', (message, callback) => {
     console.log('New message recieved:', JSON.stringify(message, undefined, 2));
     io.emit('newMessage', generateMessage(message.from, message.text));
-    callback('Message sent');
+    callback();
   });
 
-  socket.on('createLocationMessage', (position) => {
+  socket.on('createLocationMessage', (position, callback) => {
     io.emit('newLocationMessage', generateLocationMessage('Admin', position.latitude, position.longitude));
+    callback();
   });
 
   socket.on('disconnect', () => {

@@ -1,3 +1,7 @@
+/* --------- */
+/* SOCKET IO */
+/* --------- */
+
 const socket = io();
 
 socket.on('connect', () => {
@@ -28,19 +32,22 @@ socket.on('newLocationMessage', (message) => {
   $('#message-list').append(li);
 });
 
-$('#message-form').on('submit', (event) => {
+/* ---------------- */
+/* DOM MANIPULATION */
+/* ---------------- */
+
+const input = $('#message-input');
+const messageForm = $('#message-form');
+messageForm.on('submit', (event) => {
   event.preventDefault();
   
-  const input = $('#message-input');
   if (input.val() !== '') {
     socket.emit('createMessage', {
       from: 'User',
-      text: $('[name=message]').val()
+      text: input.val()
     }, (res) => {
-      // console.log(res);
+      input.val('');
     });
-
-    $('[name=message]').val('');
   }
 });
 
@@ -51,11 +58,19 @@ locationButton.on('click', () => {
   }
 
   navigator.geolocation.getCurrentPosition((position) => {
+    locationButton.attr('disabled', true);
+    locationButton.text('Sending location...');
     socket.emit('createLocationMessage', {
       latitude: position.coords.latitude,
       longitude: position.coords.longitude
-    })
+    }, () => {
+      console.log('callback');
+      locationButton.removeAttr('disabled');    
+      locationButton.text('Send location');
+    });
   }, () => {
+    locationButton.removeAttr('disabled');
+    locationButton.text('Send location');    
     alert('Unable to fetch location');
   });
 });

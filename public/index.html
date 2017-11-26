@@ -6,18 +6,27 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Chat App</title>
   <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-  <h1>Welcome to the je7ov Chat App</h1>
+<body class="chat">
 
-  <ol id="message-list"></ol>
+  <div class="chat__sidebar">
+    <h3>People</h3>
+    <div id="users"></div>
+  </div>
 
-  <form id="message-form">
-    <input id="message-input" name="message" type="text" placeholder="Message" autocomplete="off"/>
-    <button>Send</button>
-  </form>
-  <button id="send-location">Send Location</button>
+  <div class="chat__main">
+      <ol id="message-list" class="chat__messages"></ol>
+      
+      <div class="chat__footer">
+        <form id="message-form">
+          <input id="message-input" name="message" type="text" placeholder="Message" autocomplete="off" autofocus/>
+          <button>Send</button>
+        </form>
+  
+        <button id="send-location">Send location</button>
+      </div>
+  </div>
 
   <script src="/libs/jquery-3.2.1.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
