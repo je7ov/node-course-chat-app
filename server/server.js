@@ -23,6 +23,9 @@ io.on('connection', socket => {
       return callback('Name and room name are required');
     }
 
+    params.name = params.name.trim();
+    params.room = params.room.trim();
+
     if (
       params.name.toLowerCase() === 'admin' ||
       params.name.toLowerCase() === 'je7ov'
