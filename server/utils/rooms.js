@@ -36,6 +36,7 @@ class Rooms {
       r.users.some((u, i) => {
         if (u.id === id) {
           user = u;
+          user.room = r.name;
           r.users.splice(i, 1);
           this.cleanupRoom(roomIndex);
           return true;
