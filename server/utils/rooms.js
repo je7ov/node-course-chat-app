@@ -9,8 +9,9 @@ class Rooms {
    */
   addUser(id, name, room) {
     let user;
+    room = room.toLowerCase();
     this.rooms.some(r => {
-      if (r.name === room) {
+      if (r.name.toLowerCase() === room) {
         user = { id, name };
         r.users.push(user);
         return true;
