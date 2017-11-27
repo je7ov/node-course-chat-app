@@ -2,7 +2,6 @@ const expect = require('expect');
 const { Rooms } = require('./rooms');
 
 describe('Rooms', () => {
-
   let rooms;
   beforeEach(() => {
     rooms = new Rooms();
@@ -36,10 +35,10 @@ describe('Rooms', () => {
     const id = '4';
     const name = 'Heimer';
     const room = 'room2';
-    
+
     const user = rooms.addUser(id, name, room);
     expect(user).toEqual(expect.objectContaining({ id, name }));
-    expect(rooms.rooms[1].users).toEqual(expect.arrayContaining([ user ]));
+    expect(rooms.rooms[1].users).toEqual(expect.arrayContaining([user]));
   });
 
   it('should add a user to a new room', () => {
@@ -49,7 +48,7 @@ describe('Rooms', () => {
 
     const user = rooms.addUser(id, name, room);
     expect(user).toEqual(expect.objectContaining({ id, name }));
-    expect(rooms.rooms[2].users).toEqual(expect.arrayContaining([ user ]));
+    expect(rooms.rooms[2].users).toEqual(expect.arrayContaining([user]));
   });
 
   it('should remove a user', () => {
@@ -57,7 +56,7 @@ describe('Rooms', () => {
     const user = rooms.removeUser(id);
 
     expect(user.id).toBe(id);
-    expect(rooms.rooms[0].users).not.toEqual(expect.arrayContaining([ user ]));
+    expect(rooms.rooms[0].users).not.toEqual(expect.arrayContaining([user]));
   });
 
   it('should remove a room if all users are removed', () => {

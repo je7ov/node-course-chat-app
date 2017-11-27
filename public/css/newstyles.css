@@ -1,0 +1,112 @@
+body,
+html {
+  background-color: #0d1b2a;
+  color: #c0c5e0;
+  height: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.half-height {
+  height: 50%;
+}
+
+#left-section,
+#right-section {
+  /* height: 100%; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#title {
+  text-align: center;
+  color: #5d576b;
+  margin: 24px;
+}
+
+#app-name {
+  font-size: 3em;
+  color: #c0c5e0;
+}
+
+.centered-form {
+  background-color: #5d576b;
+  color: #191919;
+  padding: 24px;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.centered-form form {
+  width: 100%;
+  max-width: 280px;
+}
+
+.centered-form .form-field {
+  padding-bottom: 12px;
+}
+
+.centered-form h2 {
+  text-align: center;
+  padding-bottom: 12px;
+}
+
+.centered-form label {
+  display: block;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+.centered-form ul {
+  padding: 0;
+  text-align: center;
+  overflow-y: auto;
+}
+
+#room-list {
+  max-height: 200px;
+}
+
+#centered-form li {
+  list-style: none;
+  font-size: 1.3em;
+}
+
+.btn {
+  padding: 14px 24px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus {
+  outline: 0 none;
+}
+
+.btn-primary {
+  background: #0d1b2a;
+  color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+  background: #232f3d;
+}
+
+.btn-primary:active,
+.btn-primary.active {
+  background: #232f3d;
+  box-shadow: none;
+}

@@ -17,18 +17,24 @@ const rooms = new Rooms();
 app.use(express.static(publicPath));
 
 // ON CONNECTION WITH NEW USER
-io.on('connection', (socket) => {
+io.on('connection', socket => {
   socket.on('join', (params, callback) => {
     if (!isRealString(params.name) || !isRealString(params.room)) {
       return callback('Name and room name are required');
-    } 
-    
-    if (params.name.toLowerCase() === 'admin' || params.name.toLowerCase() === 'je7ov') {
+    }
+
+    if (
+      params.name.toLowerCase() === 'admin' ||
+      params.name.toLowerCase() === 'je7ov'
+    ) {
       return callback('Name is reserved');
     }
 
     const userCheck = rooms.getUserByName(params.name);
-    if (userCheck && userCheck.room.toLowerCase() === params.room.toLowerCase()) {
+    if (
+      userCheck &&
+      userCheck.room.toLowerCase() === params.room.toLowerCase()
+    ) {
       return callback('Name is currently in use in room');
     }
 
@@ -38,8 +44,16 @@ io.on('connection', (socket) => {
     rooms.addUser(socket.id, params.name, params.room);
 
     io.to(params.room).emit('updateUserList', rooms.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app!'));
-    socket.broadcast.to(params.room).emit('newMessage', generateMessage('Admin',  `${params.name} has joined the chat!`));
+    socket.emit(
+      'newMessage',
+      generateMessage('Admin', 'Welcome to the chat app!')
+    );
+    socket.broadcast
+      .to(params.room)
+      .emit(
+        'newMessage',
+        generateMessage('Admin', `${params.name} has joined the chat!`)
+      );
 
     callback();
   });
@@ -49,7 +63,9 @@ io.on('connection', (socket) => {
     const user = rooms.getUser(socket.id);
 
     if (user && isRealString(message.text)) {
-      io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+      io
+        .to(user.room)
+        .emit('newMessage', generateMessage(user.name, message.text));
     }
     callback();
   });
@@ -59,7 +75,16 @@ io.on('connection', (socket) => {
     const user = rooms.getUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('newLocationMessage', generateLocationMessage(user.name, position.latitude, position.longitude));
+      io
+        .to(user.room)
+        .emit(
+          'newLocationMessage',
+          generateLocationMessage(
+            user.name,
+            position.latitude,
+            position.longitude
+          )
+        );
     }
 
     callback();
@@ -70,12 +95,17 @@ io.on('connection', (socket) => {
     const user = rooms.removeUser(socket.id);
 
     if (user) {
-      io.to(user.room).emit('updateUserList', rooms.getUserList(user.room));  
-      io.to(user.room).emit('newMessage', generateMessage('Admin', `${user.name} has left the chat.`));  
+      io.to(user.room).emit('updateUserList', rooms.getUserList(user.room));
+      io
+        .to(user.room)
+        .emit(
+          'newMessage',
+          generateMessage('Admin', `${user.name} has left the chat.`)
+        );
     }
   });
 });
 
 server.listen(port, () => {
-  console.log(`Server running on port ${port}`)
+  console.log(`Server running on port ${port}`);
 });
