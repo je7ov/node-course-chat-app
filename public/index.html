@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Join | je7ov Chat</title>
+  <script src="/js/libs/jquery-3.2.1.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="centered-form">
+<!-- <body class="centered-form">
   <div class="centered-form__form">
     <form action="/chat.html">
       <div class="form-field">
@@ -26,5 +30,70 @@
       </div>
     </form>
   </div>
+</body> -->
+
+<body>
+  <div class="container full-height">
+    <div class="row align-items-center half-height">
+      <div class="col-md-12">
+        <h1 id="title">Welcome to</br><span id="app-name">je7ov</span></br>chat</h1>          
+      </div>
+    </div>
+
+    <div class="row half-height">
+      <div id="left-section" class="col">
+        <div class="centered-form">
+            <form action="/chat.html">
+              <div class="form-field">
+                <h2>Create a chat room</h2>
+              </div>
+              <div class="form-field">
+                <label>Display Name</label>
+                <input type="text" name="name" class="form-control" autofocus />
+              </div>
+              <div class="form-field">
+                <label>Room Name</label>
+                <input type="text" name="room" class="form-control" />
+              </div>
+              <div class="form-field">
+                <button class="btn btn-primary">Join</button>
+              </div>
+            </form>
+        </div>
+      </div>
+
+      <div id="right-section" class="col">
+        <div class="centered-form">
+            <form action="/chat.html">
+              <div class="form-field">
+                <h2>Join an active chat</h2>
+              </div>
+              <div class="form-field">
+                <label>Display Name</label>
+                <input type="text" name="name" class="form-control" />
+              </div>
+              <div class="form-field">
+                <label>Room Name</label>
+                <select name="room" id="room-list" class="form-control">
+                  <option value="" selected>Select a room...</option>
+                  <option value="The Room">The Room</option>
+                  <option value="LORT Fan Club">LOTR Fan Club</option>
+                  <option value="Dank Room">Dank Room</option>
+                  <option value="My Room">My Room</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <button class="btn btn-primary">Join</button>
+              </div>
+            </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/index.js"></script>  
 </body>
+
 </html>
